@@ -1,0 +1,37 @@
+image.dock_plugin_uwu {
+    border-radius: 12px;
+}
+
+entry.dock_plugin_uwu {
+    border-radius: 12px;
+    background: pink;
+    color: #00003f;
+    border-color: white;
+    outline-color:white;
+}
+
+label.dock_plugin_uwu {
+    border-radius: 12px;
+    padding: 8px;
+    background: pink;
+    border-color: white;
+    border-width: 4px;
+    outline-color:white;
+    color: #00003f;
+}
+
+popover.dock_plugin_uwu contents {
+    border-width: 0px;
+    border-radius: 12px;
+    padding: 12px;
+    background: white;
+    border-color: pink;
+}
+
+popover.dock_plugin_uwu arrow {
+    border-width: 0px;
+    border-radius: 12px;
+    padding: 12px;
+    background: white;
+    border-color: pink;
+}
