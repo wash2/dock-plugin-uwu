@@ -17,10 +17,6 @@ pub struct Uwu {
 const ID: &str = "com.cosmic.uwu";
 
 impl Plugin for Uwu {
-    fn name(&self) -> &'static str {
-        "dock plugin uwu"
-    }
-
     fn css_provider(&mut self) -> gtk4::CssProvider {
         // Load the css file and add it to the provider
         let provider = gtk4::CssProvider::new();
