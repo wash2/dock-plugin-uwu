@@ -2,8 +2,7 @@
 use cascade::cascade;
 use cosmic_plugin::*;
 use gdk_pixbuf::glib::SourceId;
-use gtk4::prelude::*;
-use gtk4::{glib, Box, Orientation};
+use gtk4::{glib, prelude::*, Align, Box, Orientation, Popover, PositionType};
 use once_cell::sync::OnceCell;
 use std::path::PathBuf;
 use std::time::{Duration, SystemTime};
@@ -12,12 +11,14 @@ use uwuifier::uwuify_str_sse;
 #[derive(Debug, Default)]
 pub struct Uwu {
     handle: OnceCell<SourceId>,
+    applet: OnceCell<gtk4::Box>,
+    popover: OnceCell<Popover>,
 }
 
 const ID: &str = "com.cosmic.uwu";
 
 impl Plugin for Uwu {
-    fn css_provider(&mut self) -> gtk4::CssProvider {
+    fn css_provider(&self) -> gtk4::CssProvider {
         // Load the css file and add it to the provider
         let provider = gtk4::CssProvider::new();
         provider.load_from_data(include_bytes!("style.css"));
@@ -28,13 +29,34 @@ impl Plugin for Uwu {
         // XXX handle must not be 0
         // unsafe { glib::translate::from_glib::<_, SourceId>(self.handle).remove() };
         self.handle.take().unwrap().remove();
+        drop(self.applet.take().unwrap());
+        drop(self.popover.take().unwrap());
     }
 
-    fn applet(&mut self) -> gtk4::Box {
+    fn applet(&self) -> gtk4::Box {
+        self.applet.get().unwrap().clone()
+    }
+
+    fn set_position(&self, position: Position) {
+        let p = self.popover.get().unwrap();
+        p.set_position(match position {
+            Position::Start => PositionType::Right,
+            Position::End => PositionType::Left,
+            Position::Top => PositionType::Bottom,
+            Position::Bottom => PositionType::Top,
+        });
+    }
+
+    fn set_size(&self, _size: Size) {
+        // currently not used
+    }
+    fn on_plugin_load(&mut self) {
         let b = cascade! {
             Box::new(Orientation::Vertical, 0);
+            ..set_valign(Align::Center);
             ..set_height_request(64);
             ..set_width_request(64);
+            ..add_css_class("dock_item");
         };
 
         // load image
@@ -47,7 +69,7 @@ impl Plugin for Uwu {
                 let image = cascade! {
                     gtk4::Image::from_pixbuf(Some(&pixbuf_iter.pixbuf()));
                     ..set_pixel_size(64);
-                    ..add_css_class("dock_plugin_uwu");
+                    ..add_css_class("dock");
                     ..set_tooltip_text(Some("UWU!"));
                 };
                 let id = glib::timeout_add_local(
@@ -67,7 +89,7 @@ impl Plugin for Uwu {
         let uwu_translation = cascade! {
             gtk4::Label::new(Some(""));
             ..set_selectable(true);
-            ..add_css_class("dock_plugin_uwu");
+            ..add_css_class("dock_popover_title");
         };
         let uwu_entry = cascade! {
             gtk4::Entry::new();
@@ -82,13 +104,13 @@ impl Plugin for Uwu {
             Box::new(gtk4::Orientation::Vertical, 4);
             ..append(&uwu_entry);
             ..append(&uwu_translation);
-            ..add_css_class("dock_plugin_uwu");
+            ..add_css_class("popover_menu");
         };
         let popover = cascade! {
             gtk4::Popover::new();
             ..set_autohide(true);
             ..set_child(Some(&popover_menu));
-            ..add_css_class("dock_plugin_uwu");
+            ..add_css_class("dock");
         };
         b.append(&popover);
 
@@ -109,7 +131,8 @@ impl Plugin for Uwu {
                 }
             }),
         );
-        b
+        self.popover.set(popover).unwrap();
+        self.applet.set(b).unwrap();
     }
 }
 

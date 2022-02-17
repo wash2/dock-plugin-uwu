@@ -1,5 +1,68 @@
-image.dock_plugin_uwu {
+box:hover.dock_item {
+    transition: 300ms;
+    border-width: 0px;
+    background: #FFAAAACC;
     border-radius: 12px;
+    padding: 12px;
+    outline-color: white;
+}
+button:hover.dock_item {
+    transition: 300ms;
+    border-width: 0px;
+    background: #FFAAAACC;
+    border-radius: 12px;
+    color: #00003f;
+    outline-color: transparent;
+}
+
+box.dock_item {
+    transition: 300ms;
+    border-width: 0px;
+    background: transparent;
+    border-radius: 12px;
+    padding: 12px;
+    outline-color: transparent;
+}
+box.dock_item {
+    transition: 300ms;
+    border-width: 0px;
+    background: transparent;
+    border-radius: 12px;
+    color: #00003f;
+    outline-color: transparent;
+}
+
+button.dock_item {
+    transition: 300ms;
+    border-width: 0px;
+    background: transparent;
+    border-radius: 12px;
+    color: white;
+    outline-color: transparent;
+}
+
+
+button:hover.popover_menu {
+    transition: 300ms;
+    border-width: 0px;
+    background: #FFAAAACC;
+    border-radius: 12px;
+    color: #00003f;
+    outline-color: #00003f;
+}
+
+button.popover_menu {
+    transition: 300ms;
+    border-width: 0px;
+    background: transparent;
+    border-radius: 12px;
+    color: #00003f;
+    outline-color: #00003f;
+}
+
+list.popover_menu {
+    background: transparent;
+    outline-color: #00003f;
 }
 
 entry.dock_plugin_uwu {
@@ -10,7 +73,7 @@ entry.dock_plugin_uwu {
     outline-color:white;
 }
 
-label.dock_plugin_uwu {
+label.dock_popover_title {
     border-radius: 12px;
     padding: 8px;
     background: pink;
@@ -20,7 +83,7 @@ label.dock_plugin_uwu {
     color: #00003f;
 }
 
-popover.dock_plugin_uwu contents {
+popover.dock contents {
     border-width: 0px;
     border-radius: 12px;
     padding: 12px;
@@ -28,10 +91,34 @@ popover.dock_plugin_uwu contents {
     border-color: pink;
 }
 
-popover.dock_plugin_uwu arrow {
+popover.dock arrow {
     border-width: 0px;
     border-radius: 12px;
     padding: 12px;
     background: white;
     border-color: pink;
+}
+
+box.dock {
+    border-radius: 12px;
+    /* padding: 12px; */
+    background: #4F0040DD;
+}
+
+separator.dock_separator {
+    background: #FFFFFF88;
+}
+
+list.popover_menu {
+    border-width: 0px;
+    border-radius: 12px;
+    padding: 12px;
+    background: transparent;
+}
+
+box.popover_menu {
+    border-width: 0px;
+    border-radius: 12px;
+    padding: 12px;
+    background: transparent;
 }
