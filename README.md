@@ -150,7 +150,7 @@ cd dock-plugin-uwu
 ```
 
 The `dock-plugin-uwu` should be compiled with the `nightly` version of the Rust toolchain.
-In order to do that you can set the plugins directory to be use the nightly version as such:
+In order to do that you can set the plugins directory to use the nightly version as such:
 
 ```bash
 rustup override set nightly
